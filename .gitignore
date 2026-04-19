@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Large NLP Artifacts (Avoid pushing to GitHub)
+embeddings/*.npy
+embeddings/*.bin
+embeddings/*.json
+data/*.txt
+!data/raw.txt
+
+# Local environment
+.env
+.vscode/
