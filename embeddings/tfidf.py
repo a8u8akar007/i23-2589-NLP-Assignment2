@@ -5,11 +5,18 @@ class TFIDF:
     """
     Implementation of TF-IDF (Term Frequency-Inverse Document Frequency) from scratch.
     """
-    def __init__(self):
-        self.word2idx = {}
-        self.idx2word = {}
+    def __init__(self, word2idx=None):
+        self.word2idx = word2idx if word2idx is not None else {}
+        self.idx2word = {i: w for w, i in self.word2idx.items()} if self.word2idx else {}
         self.idf = None
-        self.vocab_size = 0
+        self.vocab_size = len(self.word2idx)
+
+    def fit_transform(self, corpus):
+        """
+        Fits to the corpus and returns the TF-IDF matrix.
+        """
+        self.fit(corpus)
+        return self.transform(corpus)
 
     def fit(self, corpus):
         """
@@ -18,10 +25,11 @@ class TFIDF:
             corpus: List of list of strings (tokenized documents)
         """
         N = len(corpus)
-        unique_words = sorted(list(set([word for doc in corpus for word in doc])))
-        self.word2idx = {word: i for i, word in enumerate(unique_words)}
-        self.idx2word = {i: word for word, i in self.word2idx.items()}
-        self.vocab_size = len(unique_words)
+        if not self.word2idx:
+            unique_words = sorted(list(set([word for doc in corpus for word in doc])))
+            self.word2idx = {word: i for i, word in enumerate(unique_words)}
+            self.idx2word = {i: word for word, i in self.word2idx.items()}
+            self.vocab_size = len(unique_words)
         
         # Calculate Document Frequency (DF)
         df_counts = np.zeros(self.vocab_size)

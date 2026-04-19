@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def visualize_embeddings(embeddings, labels, n_components=2):
+def visualize_embeddings(embeddings, labels, n_components=2, title="Embeddings Visualization"):
     """
     Visualize high-dimensional embeddings using PCA from scratch.
     """
@@ -22,7 +22,7 @@ def visualize_embeddings(embeddings, labels, n_components=2):
     for i, label in enumerate(labels):
         plt.annotate(label, (projected_data[i, 0], projected_data[i, 1]))
     
-    plt.title("PPMI Embeddings Visualization (PCA from scratch)")
+    plt.title(title)
     plt.xlabel("PC1")
     plt.ylabel("PC2")
     plt.grid(True)
